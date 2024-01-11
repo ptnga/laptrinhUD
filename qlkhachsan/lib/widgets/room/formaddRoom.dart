@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:qlkhachsan/models/RoomVariant.dart';
 import 'package:qlkhachsan/models/RoomType.dart';
-import 'roomManager.dart';
+import 'package:qlkhachsan/widgets/room/roomManager.dart';
+import '../roomManager.dart';
 
 class FromAddRoom extends StatefulWidget{
   final Function addRoom;

@@ -6,6 +6,9 @@
       <excludeFolder url="file://$MODULE_DIR$/qlphongkhachsan/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/qlphongkhachsan/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/qlphongkhachsan/build" />
+      <excludeFolder url="file://$MODULE_DIR$/qlkhachsan/build" />
+      <excludeFolder url="file://$MODULE_DIR$/qlkhachsan/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/qlkhachsan/.dart_tool" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
