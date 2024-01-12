@@ -11,6 +11,7 @@ class RoomDetailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Room Detail'),
+        backgroundColor: Colors.blue,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

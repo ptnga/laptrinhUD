@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:qlkhachsan/widgets/roomManager.dart';
 import '/models/user_interface.dart';
 import '/widgets/components/my_drawer.dart';
 import 'package:provider/provider.dart';
+import 'roomManager.dart';
 
 
 class MyHomePage extends StatelessWidget{
@@ -26,7 +28,12 @@ class MyHomePage extends StatelessWidget{
                 padding: EdgeInsets.all(15.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).popAndPushNamed('/phong');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => RoomManager(),
+                      ),
+                    );
                   },
                   style: ButtonStyle(
                     //backgroundColor: MaterialStateProperty.all(Colors.white),

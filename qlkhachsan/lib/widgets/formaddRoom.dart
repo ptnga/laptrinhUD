@@ -3,39 +3,33 @@ import 'package:provider/provider.dart';
 import 'package:qlkhachsan/models/RoomVariant.dart';
 import 'package:qlkhachsan/models/RoomType.dart';
 import 'roomManager.dart';
-import 'roomManager.dart';
 
-class FromAddRoom extends StatefulWidget{
+class FromAddRoom extends StatelessWidget {
   final Function addRoom;
+  final List<RoomType> listRoomType;
+  final List<RoomVariant> listRoomVariant;
 
   final roomnumberController = TextEditingController();
   final floornumberController = TextEditingController();
-  int? numberTypeController =0;
-  int? numberVariantController=0;
+  final ValueNotifier<RoomType?> selectedRoomType = ValueNotifier<RoomType?>(null);
+  final ValueNotifier<RoomVariant?> selectedRoomVariant = ValueNotifier<RoomVariant?>(null);
+  int? numberTypeController = 0;
+  int? numberVariantController = 0;
 
-  FromAddRoom(this.addRoom);
+  FromAddRoom(this.addRoom, this.listRoomType, this.listRoomVariant);
 
-  @override
-  _FromAddRoom createState() => _FromAddRoom();
-}
-class _FromAddRoom extends State<FromAddRoom>{
-  RoomType? selectedRoomType;
-  RoomVariant? selectedRoomVariant;
+  // RoomType? selectedRoomType;
+  // RoomVariant? selectedRoomVariant;
   RoomType? firstRoomType;
   RoomVariant? firstRoomVariant;
 
-
-  void openShowdialog (BuildContext context){
-    RoomManagerProvider roomManagerProvider = Provider.of<RoomManagerProvider>(context, listen: false);
-
-    List<RoomType> listRoomType = roomManagerProvider.listRoomType;
-    List<RoomVariant> listRoomVariant = roomManagerProvider.listRoomVariant;
-
+  void openShowdialog(BuildContext context) {
     firstRoomType = listRoomType.first;
     firstRoomVariant = listRoomVariant.first;
     showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (BuildContext context){
+      RoomManagerProvider roomManagerProvider = Provider.of<RoomManagerProvider>(context, listen: true);
       return AlertDialog(
         title: Text('Add Room'),
         content: Column(
@@ -43,75 +37,88 @@ class _FromAddRoom extends State<FromAddRoom>{
           children: [
             TextField(
               decoration: InputDecoration(labelText: 'Room Number'),
-              controller: widget.roomnumberController,
+              controller: roomnumberController,
               keyboardType: TextInputType.number,
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Floor Number'),
-              controller: widget.floornumberController,
+              controller: floornumberController,
               keyboardType: TextInputType.number,
             ),
-            DropdownButton<RoomType>(
-              value: selectedRoomType ?? firstRoomType,
-              items: listRoomType.map((RoomType value) {
-                return DropdownMenuItem<RoomType>(
-                  value: value,
-                   child: Text(value.name),
+            // DropdownButton<RoomType>(
+            //   value: selectedRoomType.value ?? firstRoomType,
+            //   items: listRoomType.map((RoomType value) {
+            //     return DropdownMenuItem<RoomType>(
+            //       value: value,
+            //       child: Text(value.name),
+            //     );
+            //   }).toList(),
+            //   onChanged: (RoomType? value) {
+            //     int selectedIndex = listRoomType.indexOf(value!);
+            //     numberTypeController = selectedIndex;
+            //     selectedRoomType.value = listRoomType[selectedIndex];
+            //   },
+            // ),
+            ValueListenableBuilder<RoomType?>(
+              valueListenable: selectedRoomType,
+              builder: (context, value, child) {
+                return DropdownButton<RoomType>(
+                  value: value ?? firstRoomType,
+                  items: listRoomType.map((RoomType value) {
+                    return DropdownMenuItem<RoomType>(
+                      value: value,
+                      child: Text(value.name),
+                    );
+                  }).toList(),
+                  onChanged: (RoomType? value) {
+                    int selectedIndex = listRoomType.indexOf(value!);
+                    numberTypeController = selectedIndex;
+                    selectedRoomType.value = listRoomType[selectedIndex];
+                  },
                 );
-            }).toList(),
-            onChanged: (RoomType? value) {
-              for(int i = 0; i< listRoomType.length ; i++) {
-                if( listRoomType[i] == value) {
-                  widget.numberTypeController = i;
-                }
-              }
-              setState(() {
-                selectedRoomType = value;
-              });
-            },
+              },
             ),
-            DropdownButton<RoomVariant>(
-              value: selectedRoomVariant ?? firstRoomVariant,
-              items: listRoomVariant.map((RoomVariant value) {
-                return DropdownMenuItem<RoomVariant>(
-                  value: value,
-                    child: Text(value.name),
+            ValueListenableBuilder<RoomVariant?>(
+              valueListenable: selectedRoomVariant,
+              builder: (context, value, child) {
+                return DropdownButton<RoomVariant>(
+                  value: value ?? firstRoomVariant,
+                  items: listRoomVariant.map((RoomVariant value) {
+                    return DropdownMenuItem<RoomVariant>(
+                      value: value,
+                      child: Text(value.name),
+                    );
+                  }).toList(),
+                  onChanged: (RoomVariant? value) {
+                    int selectedIndex = listRoomVariant.indexOf(value!);
+                    numberVariantController = selectedIndex;
+                    selectedRoomVariant.value = listRoomVariant[selectedIndex];
+                  },
                 );
-            }).toList(),
-            onChanged: (RoomVariant? value) {
-              for(int i = 0; i< listRoomVariant.length ; i++) {
-                if( listRoomVariant[i] == value) {
-                  widget.numberVariantController = i;
-                }
-              }
-              setState(() {
-                selectedRoomVariant = value;
-                // widget.numberVariantController = listRoomVariant.indexOf(value!);
-              });
-            },
+              },
             ),
             TextButton(
               child: Text('Add Room'),
               onPressed: () {
-                widget.addRoom(
-                  int.parse(widget.roomnumberController.text),
-                  int.parse(widget.floornumberController.text),
-                  widget.numberTypeController,
-                  widget.numberVariantController,
+                addRoom(
+                  int.parse(roomnumberController.text),
+                  int.parse(floornumberController.text),
+                  numberTypeController,
+                  numberVariantController,
                 );
                 Navigator.of(context).popUntil((route) => route.isFirst);
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Text('Add Room'),
+                      title: Text('Add New Room'),
                       content: Text('Successfully!'),
                       actions: [
                         TextButton(
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          child: Text('Đóng'),
+                          child: Text('Close'),
                         ),
                       ],
                     );
@@ -119,17 +126,18 @@ class _FromAddRoom extends State<FromAddRoom>{
                 );
               },
             )
-        ],
-      ),
+          ],
+        ),
       );
-    },
-  );
-}
+    }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       openShowdialog(context);
     });
-      return Container();
+    return Container();
   }
 }

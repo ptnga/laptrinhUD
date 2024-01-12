@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => RoomManagerProvider()),
+        ChangeNotifierProvider(create: (context) => RoomManagerProvider(), child: RoomManagerWidget(),),
         ChangeNotifierProvider(create: (context) => UserInterface()),
       ],
       child: MaterialApp(
@@ -36,9 +36,6 @@ class MyRoomPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("List Room"),
-      ),
       body: RoomManager(),
     );
   }

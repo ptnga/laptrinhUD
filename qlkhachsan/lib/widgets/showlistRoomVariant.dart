@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:qlkhachsan/models/Room.dart';
-import 'package:qlkhachsan/models/RoomType.dart';
 import 'package:qlkhachsan/models/RoomVariant.dart';
-import 'roomDetail.dart';
 import 'roomManager.dart';
 import 'package:provider/provider.dart';
-import 'formaddRoom.dart';
+import 'formaddRoomVariant.dart';
 
 
-class ShowListRoom extends StatelessWidget {
-  final List<Room> listRoom;
-  final List<RoomType> listRoomType;
+class ShowListRoomVariant extends StatelessWidget {
   final List<RoomVariant> listRoomVariant;
 
-  ShowListRoom(this.listRoom, this.listRoomType, this.listRoomVariant);
+  ShowListRoomVariant(this.listRoomVariant);
 
   @override
   Widget build(BuildContext context) {
@@ -22,28 +17,18 @@ class ShowListRoom extends StatelessWidget {
       body: Stack(
         children: [
           ListView.builder(
-          itemCount: listRoom.length,
+            itemCount: listRoomVariant.length,
             itemBuilder: (BuildContext context, int index) {
-              Room r = listRoom[index];
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => RoomDetailPage(r),
-                    ),
-                  );
-                },
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      '${r.numberRoom} ${r.numberfloor}',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
+              RoomVariant r = listRoomVariant[index];
+              return Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    '${r.name}',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
                     ),
                   ),
                 ),
@@ -66,15 +51,22 @@ class ShowListRoom extends StatelessWidget {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
-                                return FromAddRoom(roomManagerProvider.addRoom, roomManagerProvider.listRoomType, roomManagerProvider.listRoomVariant);
+                                return GestureDetector(
+                                    onTap: () {
+                                      Navigator.of(context).popUntil((route) => route.isFirst);
+                                    },
+                                    child: FromAddRoomVariant(roomManagerProvider.addRoomVariant)
+                                );
+
                               },
                             );
+
                           },
                           child: Row(
                             children: [
                               Icon(Icons.add),
                               SizedBox(width: 10),
-                              Text('Add New Room'),
+                              Text('Add New Room Variant'),
                             ],
                           ),
                         ),
@@ -89,7 +81,5 @@ class ShowListRoom extends StatelessWidget {
         ],
       ),
     );
-
-
   }
 }

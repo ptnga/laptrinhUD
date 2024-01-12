@@ -8,29 +8,57 @@ class FromAddRoomVariant extends StatelessWidget {
   FromAddRoomVariant(this.addRoomVariant);
 
   @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      child: Container(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            TextField(
-              decoration: InputDecoration(labelText: 'Room Variant'),
-              controller: variantController,
+  void openshowDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('New Room Variant'),
+            content: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                TextField(
+                  decoration: InputDecoration(labelText: 'Name'),
+                  controller: variantController,
+                ),
+                TextButton(
+                  child: Text('Add Room Variant'),
+                  onPressed: (){
+                    addRoomVariant(
+                      variantController.text,
+                    );
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text('Add New Room Variant'),
+                          content: Text('Successfully!'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text('Close'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                )
+              ],
             ),
-            TextButton(
-              child: Text('Add Room Variant'),
-              onPressed: (){
-                addRoomVariant(
-                  variantController.text,
-                );
-              },
-            )
-          ],
-        ),
-      ),
+
+          );
+        }
     );
+  }
+  @override
+  Widget build(BuildContext context) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      openshowDialog(context);
+    });
+    return Container();
   }
 }
