@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qlkhachsan/models/Room.dart';
-import 'room/roomDetail.dart';
+import 'roomDetail.dart';
 
 class ShowListRoom extends StatelessWidget {
   final List<Room> listRoom;

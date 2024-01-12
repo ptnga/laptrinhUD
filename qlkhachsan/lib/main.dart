@@ -3,8 +3,7 @@ import 'package:provider/provider.dart';
 import '/models/user_interface.dart';
 import '/widgets/home_page.dart';
 import '/widgets/settings.dart';
-import '/widgets/myroom.dart';
-import '/widgets/room/roomManager.dart';
+import '/widgets/roomManager.dart';
 
 void main() {
   runApp(const MyApp());
