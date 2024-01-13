@@ -5,9 +5,6 @@ import 'package:qlkhachsan/models/RoomVariant.dart';
 import 'package:provider/provider.dart';
 import 'package:qlkhachsan/widgets/showlistRoomType.dart';
 import 'package:qlkhachsan/widgets/showlistRoomVariant.dart';
-import 'formaddRoom.dart';
-import 'formaddRoomVariant.dart';
-import 'formaddRoomType.dart';
 import 'package:qlkhachsan/widgets/showlistRoom.dart';
 
 class RoomManagerProvider extends ChangeNotifier {
@@ -103,6 +100,12 @@ class _RoomManagerWidgetState extends State<RoomManagerWidget> {
           appBar: AppBar(
             title: Text('Room Manager'),
             backgroundColor: Colors.blue,
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.of(context).popAndPushNamed('/trangchu');
+              },
+            ),
           ),
           body: Stack(
             children: [

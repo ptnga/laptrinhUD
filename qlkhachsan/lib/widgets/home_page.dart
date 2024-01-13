@@ -9,6 +9,7 @@ import 'roomManager.dart';
 class MyHomePage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
+    RoomManagerProvider roomManagerProvider = Provider.of<RoomManagerProvider>(context, listen: true);
     return Consumer<UserInterface>(
       builder: (context, ui, child) {
         return Scaffold(
@@ -28,12 +29,7 @@ class MyHomePage extends StatelessWidget{
                 padding: EdgeInsets.all(15.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => RoomManager(),
-                      ),
-                    );
+                    Navigator.of(context).popAndPushNamed('/phong');
                   },
                   style: ButtonStyle(
                     //backgroundColor: MaterialStateProperty.all(Colors.white),

@@ -42,25 +42,14 @@ class ShowListRoomType extends StatelessWidget {
               onPressed: () {
                 showMenu(
                   context: context,
-                  position: RelativeRect.fromLTRB(300, 600, 0, 0),
+                  position: RelativeRect.fromLTRB(300, 745, 0, 0),
                   items: [
                     PopupMenuItem(
                       child: Material(
                         child: ElevatedButton(
                           onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    Navigator.of(context).popUntil((route) => route.isFirst);
-                                  },
-                                  child: FromAddRoomType(roomManagerProvider.addRoomType)
-                                );
-
-                              },
-                            );
-
+                            FromAddRoomType openrt = FromAddRoomType(roomManagerProvider.addRoomType);
+                            openrt.openshowDialog(context);
                           },
                           child: Row(
                             children: [

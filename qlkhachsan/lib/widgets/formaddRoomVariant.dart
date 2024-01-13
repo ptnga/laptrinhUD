@@ -7,58 +7,83 @@ class FromAddRoomVariant extends StatelessWidget {
 
   FromAddRoomVariant(this.addRoomVariant);
 
+  bool validateInputs() {
+    return variantController.text.isEmpty;
+  }
   @override
   void openshowDialog(BuildContext context) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('New Room Variant'),
-            content: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                TextField(
-                  decoration: InputDecoration(labelText: 'Name'),
-                  controller: variantController,
-                ),
-                TextButton(
-                  child: Text('Add Room Variant'),
-                  onPressed: (){
-                    addRoomVariant(
-                      variantController.text,
-                    );
-                    Navigator.of(context).popUntil((route) => route.isFirst);
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text('Add New Room Variant'),
-                          content: Text('Successfully!'),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: Text('Close'),
-                            ),
-                          ],
-                        );
+          return GestureDetector(
+            onTap: () {
+              Navigator.of(context).popUntil((route) => route.isFirst);
+            },
+            child: AlertDialog(
+              title: Text('New Room Variant'),
+              contentPadding: EdgeInsets.all(16.0),
+              content: Container(
+                height: 130.0,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    TextField(
+                      decoration: InputDecoration(labelText: 'Name'),
+                      controller: variantController,
+                    ),
+                    TextButton(
+                      child: Text('Add Room Variant'),
+                      onPressed: (){
+                        if(validateInputs()) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('Error!'),
+                                content: Text('No Data! You need to enter data.'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text('Ok'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        } else {
+                          addRoomVariant(variantController.text);
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('Add New Room Variant'),
+                                content: Text('Successfully!'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).popUntil((route) => route.isFirst);
+                                    },
+                                    child: Text('Close'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
                       },
-                    );
-                  },
-                )
-              ],
+                    )
+                  ],
+                ),
+              ),
             ),
-
           );
         }
     );
   }
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      openshowDialog(context);
-    });
     return Container();
   }
 }
