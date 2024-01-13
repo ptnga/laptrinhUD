@@ -42,18 +42,39 @@ class RoomManagerProvider extends ChangeNotifier {
     _listRoomVariant.add(newRoomVariant);
     notifyListeners();
   }
+  bool _showTrueStatus = true;
+  bool _showFalseStatus = true;
+
+  bool get showTrueStatus => _showTrueStatus;
+  bool get showFalseStatus => _showFalseStatus;
+
+  set showTrueStatus(bool value) {
+    _showTrueStatus = value;
+    notifyListeners();
+  }
+
+  set showFalseStatus(bool value) {
+    _showFalseStatus = value;
+    notifyListeners();
+  }
 
   late final List<Room> listRoom;
-
-
-
-
 
   // Hàm khởi tạo
   RoomManagerProvider() {
     listRoom = [
       Room(numberRoom: 101, numberfloor: 1, statusBook: true, type: listRoomType[0], variant: listRoomVariant[0]),
-      Room(numberRoom: 201, numberfloor: 2, statusBook: false, type: listRoomType[1], variant: listRoomVariant[1]),
+      Room(numberRoom: 102, numberfloor: 2, statusBook: false, type: listRoomType[1], variant: listRoomVariant[1]),
+      Room(numberRoom: 103, numberfloor: 1, statusBook: true, type: listRoomType[0], variant: listRoomVariant[0]),
+      Room(numberRoom: 104, numberfloor: 2, statusBook: true, type: listRoomType[1], variant: listRoomVariant[1]),
+      Room(numberRoom: 201, numberfloor: 1, statusBook: true, type: listRoomType[0], variant: listRoomVariant[0]),
+      Room(numberRoom: 202, numberfloor: 2, statusBook: false, type: listRoomType[1], variant: listRoomVariant[1]),
+      Room(numberRoom: 203, numberfloor: 1, statusBook: false, type: listRoomType[0], variant: listRoomVariant[0]),
+      Room(numberRoom: 204, numberfloor: 2, statusBook: false, type: listRoomType[1], variant: listRoomVariant[1]),
+      Room(numberRoom: 301, numberfloor: 1, statusBook: true, type: listRoomType[0], variant: listRoomVariant[0]),
+      Room(numberRoom: 302, numberfloor: 2, statusBook: true, type: listRoomType[1], variant: listRoomVariant[1]),
+      Room(numberRoom: 303, numberfloor: 1, statusBook: true, type: listRoomType[0], variant: listRoomVariant[0]),
+      Room(numberRoom: 304, numberfloor: 2, statusBook: false, type: listRoomType[1], variant: listRoomVariant[1]),
     ];
   }
 
@@ -70,6 +91,22 @@ class RoomManagerProvider extends ChangeNotifier {
     listRoom.add(newRoom);
     notifyListeners();
   }
+  deleteRoom(Room room) {
+    listRoom.remove(room);
+    notifyListeners();
+  }
+  editRoom(Room oldRoom, Room newRoom) {
+    int index = listRoom.indexOf(oldRoom);
+    if (index != -1) {
+      listRoom[index] = newRoom;
+      notifyListeners();
+    }
+    notifyListeners();
+  }
+  void notifyDataChanged() {
+    notifyListeners();
+  }
+
 }
 
 class RoomManager extends StatelessWidget {
@@ -116,26 +153,33 @@ class _RoomManagerWidgetState extends State<RoomManagerWidget> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          DropdownButton<String>(
-                              value: selectLR ?? showLR[0],
-                              items: showLR.map((String value) {
-                                return DropdownMenuItem<String>(
-                                    value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
-                              onChanged: (String? newValue) {
-                                setState(() {
-                                  selectLR = newValue;
-                                  if(newValue == showLR[0]) {
-                                    selectedWidget = ShowListRoom(roomManagerProvider.listRoom, roomManagerProvider._listRoomType, roomManagerProvider._listRoomVariant  );
-                                  } else if(newValue == showLR[1]) {
-                                    selectedWidget = ShowListRoomType(roomManagerProvider._listRoomType);
-                                  } else if( newValue == showLR[2]) {
-                                    selectedWidget = ShowListRoomVariant(roomManagerProvider._listRoomVariant);
+                          Padding(
+                              padding: const EdgeInsets.only(left: 16.0, top: 10.0),
+                              child: DropdownButton<String>(
+                                  value: selectLR ?? showLR[0],
+                                  items: showLR.map((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      selectLR = newValue;
+                                      if(newValue == showLR[0]) {
+                                        selectedWidget = ShowListRoom(roomManagerProvider.listRoom, roomManagerProvider._listRoomType, roomManagerProvider._listRoomVariant  );
+
+                                      } else if(newValue == showLR[1]) {
+                                        selectedWidget = ShowListRoomType(roomManagerProvider._listRoomType);
+                                      } else if( newValue == showLR[2]) {
+                                        selectedWidget = ShowListRoomVariant(roomManagerProvider._listRoomVariant);
+                                      }
+                                    });
                                   }
-                                });
-                              }
+                              ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 16.0, top: 10.0),
                           ),
                         ],
                       ),

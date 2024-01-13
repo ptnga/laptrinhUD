@@ -7,7 +7,6 @@ import 'roomManager.dart';
 import 'package:provider/provider.dart';
 import 'formaddRoom.dart';
 
-
 class ShowListRoom extends StatelessWidget {
   final List<Room> listRoom;
   final List<RoomType> listRoomType;
@@ -18,72 +17,85 @@ class ShowListRoom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     RoomManagerProvider roomManagerProvider = Provider.of<RoomManagerProvider>(context, listen: true);
+
     return Scaffold(
-      body: Stack(
-        children: [
-          ListView.builder(
-          itemCount: listRoom.length,
-            itemBuilder: (BuildContext context, int index) {
-              Room r = listRoom[index];
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => RoomDetailPage(r),
-                    ),
-                  );
-                },
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      '${r.numberRoom} ${r.numberfloor}',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
+      body: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 4,
+        ),
+        itemCount: listRoom.length,
+        itemBuilder: (BuildContext context, int index) {
+          Room r = listRoom[index];
+          return buildRoomCard(context, r);
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showMenu(
+            context: context,
+            position: RelativeRect.fromLTRB(300, 745, 0, 0),
+            items: [
+              PopupMenuItem(
+                child: Material(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      FromAddRoom openar = FromAddRoom(roomManagerProvider.addRoom, roomManagerProvider.listRoomType, roomManagerProvider.listRoomVariant);
+                      openar.openShowdialog(context);
+                    },
+                    child: Row(
+                      children: [
+                        Icon(Icons.add),
+                        SizedBox(width: 10),
+                        Text('Add New Room'),
+                      ],
                     ),
                   ),
                 ),
-              );
-            },
-          ),
-          Positioned(
-            bottom: 16.0, // Giảm bottom để đưa xuống góc dưới
-            right: 16.0,
-            child: FloatingActionButton(
-              onPressed: () {
-                showMenu(
-                  context: context,
-                  position: RelativeRect.fromLTRB(300, 745, 0, 0),
-                  items: [
-                    PopupMenuItem(
-                      child: Material(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            FromAddRoom openar = FromAddRoom(roomManagerProvider.addRoom, roomManagerProvider.listRoomType, roomManagerProvider.listRoomVariant);
-                            openar.openShowdialog(context);
-                          },
-                          child: Row(
-                            children: [
-                              Icon(Icons.add),
-                              SizedBox(width: 10),
-                              Text('Add New Room'),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              },
-              child: Icon(Icons.add),
-            ),
-          ),
-        ],
+              ),
+            ],
+          );
+        },
+        child: Icon(Icons.add),
       ),
     );
+  }
+
+  // Hàm tạo Widget Card cho Room
+  Widget buildRoomCard(BuildContext context, Room r) {
+    Color cardColor = r.statusBook ? Colors.grey.shade300 : Colors.white;
+    bool showRoom = true;
+    return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => RoomDetailPage(r),
+                ),
+              );
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Card(
+                  color: cardColor,
+                  child: Padding(
+                    padding: const EdgeInsets.all(0.0),
+                    child: Column(
+                      children: [
+                        Icon(Icons.hotel, size: 32, color: Colors.blue,),
+                        Text(
+                          '${r.numberRoom}',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+              ),
+            )
+    );
+
   }
 }
