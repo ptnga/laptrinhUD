@@ -3,6 +3,7 @@ import 'package:qlkhachsan/models/Room.dart';
 import 'package:qlkhachsan/models/RoomType.dart';
 import 'package:qlkhachsan/models/RoomVariant.dart';
 import 'package:provider/provider.dart';
+import 'package:qlkhachsan/models/user_interface.dart';
 import 'package:qlkhachsan/widgets/showlistRoomType.dart';
 import 'package:qlkhachsan/widgets/showlistRoomVariant.dart';
 import 'package:qlkhachsan/widgets/showlistRoom.dart';
@@ -94,12 +95,14 @@ class _RoomManagerWidgetState extends State<RoomManagerWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final userInterface = Provider.of<UserInterface>(context);
+
     return Consumer<RoomManagerProvider>(
       builder: (context, roomManagerProvider, child) {
         return Scaffold(
           appBar: AppBar(
             title: Text('Room Manager'),
-            backgroundColor: Colors.blue,
+            backgroundColor: userInterface.appBarColor,
             leading: IconButton(
               icon: Icon(Icons.arrow_back),
               onPressed: () {
