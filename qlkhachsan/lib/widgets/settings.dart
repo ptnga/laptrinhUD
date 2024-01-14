@@ -12,7 +12,7 @@ class MySetting extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: Text('Setting'),
-              backgroundColor: Colors.green,
+              backgroundColor: ui.appBarColor,
             ),
 
             drawer: MyDrawer(),
