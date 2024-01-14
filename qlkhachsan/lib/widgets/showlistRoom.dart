@@ -60,10 +60,8 @@ class ShowListRoom extends StatelessWidget {
     );
   }
 
-  // Hàm tạo Widget Card cho Room
   Widget buildRoomCard(BuildContext context, Room r) {
     Color cardColor = r.statusBook ? Colors.grey.shade300 : Colors.white;
-    bool showRoom = true;
     return GestureDetector(
             onTap: () {
               Navigator.push(
@@ -96,6 +94,5 @@ class ShowListRoom extends StatelessWidget {
               ),
             )
     );
-
   }
 }

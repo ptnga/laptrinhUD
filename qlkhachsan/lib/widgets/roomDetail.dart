@@ -242,13 +242,15 @@ class RoomDetailPage extends StatelessWidget {
                     subtitle: Text('${room.statusBook}', style: TextStyle(fontSize: 16),),
                     leading: Icon(Icons.info, color: Colors.red,),
                   ),
+                  SizedBox(height: 50.0,),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       IconButton(
                           onPressed: () => _onDeletePressed(context),
                           icon: Row(
                             children: [
-                              Icon(Icons.delete, color: Colors.red, size: 40,),
+                              Icon(Icons.delete, color: Colors.red, size: 30,),
                               Text('Delete Room', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold) )
                             ],
                           )
@@ -257,7 +259,7 @@ class RoomDetailPage extends StatelessWidget {
                           onPressed: () => edit(context),
                           icon: Row(
                             children: [
-                              Icon(Icons.edit, size: 35,),
+                              Icon(Icons.edit, size: 30,),
                               Text('Edit Room', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold) )
                             ],
                           )

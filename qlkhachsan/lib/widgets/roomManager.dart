@@ -96,6 +96,14 @@ class RoomManagerProvider extends ChangeNotifier {
     listRoom.remove(room);
     notifyListeners();
   }
+  deleteRoomType(RoomType roomType) {
+    listRoomType.remove(roomType);
+    notifyListeners();
+  }
+  deleteRoomVariant(RoomVariant roomVariant) {
+    listRoomVariant.remove(roomVariant);
+    notifyListeners();
+  }
   editRoom(Room oldRoom, Room newRoom) {
     int index = listRoom.indexOf(oldRoom);
     if (index != -1) {

@@ -4,7 +4,6 @@ import 'roomManager.dart';
 import 'package:provider/provider.dart';
 import 'formaddRoomVariant.dart';
 
-
 class ShowListRoomVariant extends StatelessWidget {
   final List<RoomVariant> listRoomVariant;
 
@@ -20,23 +19,11 @@ class ShowListRoomVariant extends StatelessWidget {
             itemCount: listRoomVariant.length,
             itemBuilder: (BuildContext context, int index) {
               RoomVariant r = listRoomVariant[index];
-              return Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    '${r.name}',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              );
+              return buildRoomCard(context, r);
             },
           ),
           Positioned(
-            bottom: 16.0, // Giảm bottom để đưa xuống góc dưới
+            bottom: 16.0,
             right: 16.0,
             child: FloatingActionButton(
               onPressed: () {
@@ -48,8 +35,8 @@ class ShowListRoomVariant extends StatelessWidget {
                       child: Material(
                         child: ElevatedButton(
                           onPressed: () {
-                            FromAddRoomVariant openrv = FromAddRoomVariant(roomManagerProvider.addRoomVariant);
-                            openrv.openshowDialog(context);
+                            FromAddRoomVariant openrt = FromAddRoomVariant(roomManagerProvider.addRoomVariant);
+                            openrt.openshowDialog(context);
                           },
                           child: Row(
                             children: [
@@ -68,6 +55,59 @@ class ShowListRoomVariant extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+  Widget buildRoomCard(BuildContext context, RoomVariant r) {
+    return GestureDetector(
+      onLongPress: () {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            RoomManagerProvider roomManagerProvider = Provider.of<RoomManagerProvider>(context, listen: true);
+            return AlertDialog(
+              title: Text("Confirm Deletion!"),
+              content: Text("Are you sure you want to delete the Room Variant? ${r.name}?"),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("Cancel"),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    roomManagerProvider.deleteRoomVariant(r);
+                    Navigator.pop(context);
+                    // Navigator.pop(context);
+                  },
+                  child: Text("Delete"),
+                ),
+              ],
+            );
+          },
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Card(
+          child: Padding(
+              padding: const EdgeInsets.all(0.0),
+              child: Row(
+                children: [
+                  Icon(Icons.layers, size: 30, color: Colors.blue.shade200),
+                  Text(
+                    ' ${r.name}',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              )
+          ),
+        ),
       ),
     );
   }

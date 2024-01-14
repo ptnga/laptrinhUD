@@ -20,23 +20,11 @@ class ShowListRoomType extends StatelessWidget {
           itemCount: listRoomType.length,
             itemBuilder: (BuildContext context, int index) {
               RoomType r = listRoomType[index];
-              return Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    '${r.name}',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              );
+              return buildRoomCard(context, r);
             },
           ),
           Positioned(
-            bottom: 16.0, // Giảm bottom để đưa xuống góc dưới
+            bottom: 16.0,
             right: 16.0,
             child: FloatingActionButton(
               onPressed: () {
@@ -70,6 +58,58 @@ class ShowListRoomType extends StatelessWidget {
         ],
       ),
     );
-
+  }
+  Widget buildRoomCard(BuildContext context, RoomType r) {
+    return GestureDetector(
+      onLongPress: () {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            RoomManagerProvider roomManagerProvider = Provider.of<RoomManagerProvider>(context, listen: true);
+            return AlertDialog(
+              title: Text("Confirm Deletion!"),
+              content: Text("Are you sure you want to delete the Room Type? ${r.name}?"),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("Cancel"),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    roomManagerProvider.deleteRoomType(r);
+                    Navigator.pop(context);
+                    // Navigator.pop(context);
+                  },
+                  child: Text("Delete"),
+                ),
+              ],
+            );
+          },
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(0.0),
+            child: Row(
+              children: [
+                Icon(Icons.layers, size: 30, color: Colors.blue.shade200),
+                Text(
+                  ' ${r.name}',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            )
+          ),
+        ),
+      ),
+    );
   }
 }
