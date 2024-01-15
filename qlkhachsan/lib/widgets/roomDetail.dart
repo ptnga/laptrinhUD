@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qlkhachsan/models/Room.dart';
 import 'package:provider/provider.dart';
+import 'package:qlkhachsan/models/user_interface.dart';
 import 'roomManager.dart';
 import 'package:qlkhachsan/models/RoomType.dart';
 import 'package:qlkhachsan/models/RoomVariant.dart';
@@ -191,88 +192,93 @@ class RoomDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     RoomManagerProvider roomManagerProvider = Provider.of<RoomManagerProvider>(context, listen: true);
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Room Detail'),
-          backgroundColor: Colors.blue,
-        ),
-        body: ListView(
-          shrinkWrap: true,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ListTile(
-                    title: Text(
-                      'Room Number',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Text('${room.numberRoom}', style: TextStyle(fontSize: 16),),
-                    leading: Icon(Icons.confirmation_number),
+    return Consumer<UserInterface>(
+        builder: (context, ui, child)
+            {
+              return Scaffold(
+                  appBar: AppBar(
+                    title: Text('Room Detail'),
+                    backgroundColor: ui.appBarColor,
                   ),
-                  ListTile(
-                    title: Text(
-                      'Floor Number',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Text('${room.numberfloor}', style: TextStyle(fontSize: 16),),
-                    leading: Icon(Icons.layers),
-                  ),
-                  ListTile(
-                    title: Text(
-                      'Room Type',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Text('${room.type?.name}',style: TextStyle(fontSize: 16),),
-                    leading: Icon(Icons.hotel, color: Colors.blue),
-                  ),
-                  ListTile(
-                    title: Text(
-                      'Room Variant',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: Text('${room.variant?.name}', style: TextStyle(fontSize: 16),),
-                    leading: Icon(Icons.category, color: Colors.green),
-                  ),
-                  ListTile(
-                    title: Text('Status'),
-                    subtitle: Text('${room.statusBook}', style: TextStyle(fontSize: 16),),
-                    leading: Icon(Icons.info, color: Colors.red,),
-                  ),
-                  SizedBox(height: 50.0,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  body: ListView(
+                    shrinkWrap: true,
                     children: [
-                      IconButton(
-                          onPressed: () => _onDeletePressed(context),
-                          icon: Row(
-                            children: [
-                              Icon(Icons.delete, color: Colors.red, size: 30,),
-                              Text('Delete Room', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold) )
-                            ],
-                          )
-                      ),
-                      IconButton(
-                          onPressed: () => edit(context),
-                          icon: Row(
-                            children: [
-                              Icon(Icons.edit, size: 30,),
-                              Text('Edit Room', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold) )
-                            ],
-                          )
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ListTile(
+                              title: Text(
+                                'Room Number',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text('${room.numberRoom}', style: TextStyle(fontSize: 16),),
+                              leading: Icon(Icons.confirmation_number),
+                            ),
+                            ListTile(
+                              title: Text(
+                                'Floor Number',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text('${room.numberfloor}', style: TextStyle(fontSize: 16),),
+                              leading: Icon(Icons.layers),
+                            ),
+                            ListTile(
+                              title: Text(
+                                'Room Type',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text('${room.type?.name}',style: TextStyle(fontSize: 16),),
+                              leading: Icon(Icons.hotel, color: Colors.blue),
+                            ),
+                            ListTile(
+                              title: Text(
+                                'Room Variant',
+                                style: TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text('${room.variant?.name}', style: TextStyle(fontSize: 16),),
+                              leading: Icon(Icons.category, color: Colors.green),
+                            ),
+                            ListTile(
+                              title: Text('Status'),
+                              subtitle: Text('${room.statusBook}', style: TextStyle(fontSize: 16),),
+                              leading: Icon(Icons.info, color: Colors.red,),
+                            ),
+                            SizedBox(height: 50.0,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                IconButton(
+                                    onPressed: () => _onDeletePressed(context),
+                                    icon: Row(
+                                      children: [
+                                        Icon(Icons.delete, color: Colors.red, size: 30,),
+                                        Text('Delete Room', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold) )
+                                      ],
+                                    )
+                                ),
+                                IconButton(
+                                    onPressed: () => edit(context),
+                                    icon: Row(
+                                      children: [
+                                        Icon(Icons.edit, size: 30,),
+                                        Text('Edit Room', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold) )
+                                      ],
+                                    )
+                                ),
+                              ],
+                            )
+
+                            // Add more details as needed
+                          ],
+                        ),
                       ),
                     ],
                   )
-
-                  // Add more details as needed
-                ],
-              ),
-            ),
-          ],
-        )
+              );
+            }
     );
   }
 }
