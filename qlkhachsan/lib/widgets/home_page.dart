@@ -172,7 +172,7 @@ class MyHomePage extends StatelessWidget{
                 padding: const EdgeInsets.all(15.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).popAndPushNamed('/caidat');
+                    Navigator.of(context).popAndPushNamed('/thongtin');
                   },
                   child: Container(
                       width: ui.fontSize * 7.3,

@@ -4,6 +4,7 @@ import '/models/user_interface.dart';
 import '/widgets/home_page.dart';
 import '/widgets/settings.dart';
 import '/widgets/roomManager.dart';
+import 'widgets/showRoomDetailList.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
           "/trangchu": (context) => MyHomePage(),
           "/caidat": (context) => MySetting(),
           "/phong": (context) => MyRoomPage(),
+          "/thongtin": (context) => showRoomDetai(),
         },
         //home: MyHomePage(), // Set MyHomePage as the home screen
       ),
