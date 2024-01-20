@@ -144,7 +144,7 @@ class MyHomePage extends StatelessWidget{
                 padding: const EdgeInsets.all(15.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).popAndPushNamed('/caidat');
+                    Navigator.of(context).popAndPushNamed('/book');
                   },
                   child: Container(
                       width: ui.fontSize * 7.3,
@@ -160,7 +160,7 @@ class MyHomePage extends StatelessWidget{
                           ),
                           SizedBox(height: 8.0,),
                           Text(
-                            'Đặt trả',
+                            'Đặt phòng',
                             style: TextStyle(fontSize: ui.fontSize),
                           )
                         ],

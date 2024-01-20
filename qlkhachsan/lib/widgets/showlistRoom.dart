@@ -13,7 +13,6 @@ class ShowListRoom extends StatelessWidget {
   final List<RoomVariant> listRoomVariant;
 
   ShowListRoom(this.listRoom, this.listRoomType, this.listRoomVariant);
-
   @override
   Widget build(BuildContext context) {
     RoomManagerProvider roomManagerProvider = Provider.of<RoomManagerProvider>(context, listen: true);

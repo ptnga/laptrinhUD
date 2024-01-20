@@ -63,20 +63,22 @@ class RoomManagerProvider extends ChangeNotifier {
 
   // Hàm khởi tạo
   RoomManagerProvider() {
+
     listRoom = [
-      Room(numberRoom: 101, numberfloor: 1, statusBook: true, type: listRoomType[0], variant: listRoomVariant[0]),
-      Room(numberRoom: 102, numberfloor: 2, statusBook: false, type: listRoomType[1], variant: listRoomVariant[1]),
-      Room(numberRoom: 103, numberfloor: 1, statusBook: true, type: listRoomType[0], variant: listRoomVariant[0]),
-      Room(numberRoom: 104, numberfloor: 2, statusBook: true, type: listRoomType[1], variant: listRoomVariant[1]),
-      Room(numberRoom: 201, numberfloor: 1, statusBook: true, type: listRoomType[0], variant: listRoomVariant[0]),
-      Room(numberRoom: 202, numberfloor: 2, statusBook: false, type: listRoomType[1], variant: listRoomVariant[1]),
-      Room(numberRoom: 203, numberfloor: 1, statusBook: false, type: listRoomType[0], variant: listRoomVariant[0]),
-      Room(numberRoom: 204, numberfloor: 2, statusBook: false, type: listRoomType[1], variant: listRoomVariant[1]),
-      Room(numberRoom: 301, numberfloor: 1, statusBook: true, type: listRoomType[0], variant: listRoomVariant[0]),
-      Room(numberRoom: 302, numberfloor: 2, statusBook: true, type: listRoomType[1], variant: listRoomVariant[1]),
-      Room(numberRoom: 303, numberfloor: 1, statusBook: true, type: listRoomType[0], variant: listRoomVariant[0]),
+        Room(numberRoom: 101, numberfloor: 1, statusBook: true, type: listRoomType[0], variant: listRoomVariant[0]),
+        Room(numberRoom: 102, numberfloor: 2, statusBook: false, type: listRoomType[1], variant: listRoomVariant[1]),
+        Room(numberRoom: 103, numberfloor: 1, statusBook: true, type: listRoomType[0], variant: listRoomVariant[0]),
+        Room(numberRoom: 104, numberfloor: 2, statusBook: true, type: listRoomType[1], variant: listRoomVariant[1]),
+        Room(numberRoom: 201, numberfloor: 1, statusBook: true, type: listRoomType[0], variant: listRoomVariant[0]),
+        Room(numberRoom: 202, numberfloor: 2, statusBook: false, type: listRoomType[1], variant: listRoomVariant[1]),
+        Room(numberRoom: 203, numberfloor: 1, statusBook: false, type: listRoomType[0], variant: listRoomVariant[0]),
+        Room(numberRoom: 204, numberfloor: 2, statusBook: false, type: listRoomType[1], variant: listRoomVariant[1]),
+        Room(numberRoom: 301, numberfloor: 1, statusBook: true, type: listRoomType[0], variant: listRoomVariant[0]),
+        Room(numberRoom: 302, numberfloor: 2, statusBook: true, type: listRoomType[1], variant: listRoomVariant[1]),
+        Room(numberRoom: 303, numberfloor: 1, statusBook: true, type: listRoomType[0], variant: listRoomVariant[0]),
       Room(numberRoom: 304, numberfloor: 2, statusBook: false, type: listRoomType[1], variant: listRoomVariant[1]),
     ];
+
   }
 
   addRoom(int numberRoom, int numberfloor, int numberType, int numberVariant) {
@@ -88,6 +90,7 @@ class RoomManagerProvider extends ChangeNotifier {
       statusBook: false,
       type: addType,
       variant: addVariant,
+
     );
     listRoom.add(newRoom);
     notifyListeners();
