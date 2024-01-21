@@ -7,6 +7,8 @@ import 'package:qlkhachsan/models/user_interface.dart';
 import 'package:qlkhachsan/widgets/showlistRoomType.dart';
 import 'package:qlkhachsan/widgets/showlistRoomVariant.dart';
 import 'package:qlkhachsan/widgets/showlistRoom.dart';
+import 'package:qlkhachsan/models/Client.dart';
+
 
 class RoomManagerProvider extends ChangeNotifier {
   final List<RoomType> _listRoomType = [
@@ -60,6 +62,7 @@ class RoomManagerProvider extends ChangeNotifier {
   }
 
   late final List<Room> listRoom;
+  late  List<Client> listClient;
 
   // Hàm khởi tạo
   RoomManagerProvider() {
@@ -67,18 +70,23 @@ class RoomManagerProvider extends ChangeNotifier {
     listRoom = [
         Room(numberRoom: 101, numberfloor: 1, statusBook: true, type: listRoomType[0], variant: listRoomVariant[0]),
         Room(numberRoom: 102, numberfloor: 2, statusBook: false, type: listRoomType[1], variant: listRoomVariant[1]),
-        Room(numberRoom: 103, numberfloor: 1, statusBook: true, type: listRoomType[0], variant: listRoomVariant[0]),
-        Room(numberRoom: 104, numberfloor: 2, statusBook: true, type: listRoomType[1], variant: listRoomVariant[1]),
-        Room(numberRoom: 201, numberfloor: 1, statusBook: true, type: listRoomType[0], variant: listRoomVariant[0]),
+        Room(numberRoom: 103, numberfloor: 1, statusBook: false, type: listRoomType[0], variant: listRoomVariant[0]),
+        Room(numberRoom: 104, numberfloor: 2, statusBook: false, type: listRoomType[1], variant: listRoomVariant[1]),
+        Room(numberRoom: 201, numberfloor: 1, statusBook: false, type: listRoomType[0], variant: listRoomVariant[0]),
         Room(numberRoom: 202, numberfloor: 2, statusBook: false, type: listRoomType[1], variant: listRoomVariant[1]),
         Room(numberRoom: 203, numberfloor: 1, statusBook: false, type: listRoomType[0], variant: listRoomVariant[0]),
-        Room(numberRoom: 204, numberfloor: 2, statusBook: false, type: listRoomType[1], variant: listRoomVariant[1]),
-        Room(numberRoom: 301, numberfloor: 1, statusBook: true, type: listRoomType[0], variant: listRoomVariant[0]),
-        Room(numberRoom: 302, numberfloor: 2, statusBook: true, type: listRoomType[1], variant: listRoomVariant[1]),
+        Room(numberRoom: 204, numberfloor: 2, statusBook: true, type: listRoomType[1], variant: listRoomVariant[1]),
+        Room(numberRoom: 301, numberfloor: 1, statusBook: false, type: listRoomType[0], variant: listRoomVariant[0]),
+        Room(numberRoom: 302, numberfloor: 2, statusBook: false, type: listRoomType[1], variant: listRoomVariant[1]),
         Room(numberRoom: 303, numberfloor: 1, statusBook: true, type: listRoomType[0], variant: listRoomVariant[0]),
       Room(numberRoom: 304, numberfloor: 2, statusBook: false, type: listRoomType[1], variant: listRoomVariant[1]),
     ];
 
+    listClient = [
+      Client(name: 'Hoàng Lưu A', identityNumber: 012345678911, arriveTime: DateTime(2024,01,01,21,30), leaveTime: DateTime(2024,01,02,10,00), room: listRoom[0]),
+      Client(name: 'Nguyễn Văn B', identityNumber: 012345678912, arriveTime: DateTime(2024,01,03,20,00), leaveTime: DateTime(2024,01,03,22,00), room: listRoom[7]),
+      Client(name: 'Trần Thị C', identityNumber: 012345678913, arriveTime: DateTime(2024,01,07,12,00), leaveTime: DateTime(2024,01,07,16,00), room: listRoom[10]),
+    ];
   }
 
   addRoom(int numberRoom, int numberfloor, int numberType, int numberVariant) {
@@ -93,6 +101,18 @@ class RoomManagerProvider extends ChangeNotifier {
 
     );
     listRoom.add(newRoom);
+    notifyListeners();
+  }
+  addClient(String name, int identityNumber, DateTime arrive, DateTime leave, room) {
+    int index = listRoom.indexOf(room);
+    final newClient = Client(
+        name: name,
+        identityNumber: identityNumber,
+        arriveTime: arrive,
+        leaveTime: leave,
+        room: listRoom[index],
+    );
+    listClient.add(newClient);
     notifyListeners();
   }
   deleteRoom(Room room) {
@@ -115,9 +135,11 @@ class RoomManagerProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
+
   void notifyDataChanged() {
     notifyListeners();
   }
+
 
 }
 

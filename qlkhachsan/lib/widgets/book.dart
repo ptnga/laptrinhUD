@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qlkhachsan/models/Room.dart';
 import 'package:qlkhachsan/models/user_interface.dart';
-import 'package:qlkhachsan/widgets/roomManager.dart';
+import 'roomManager.dart';
 import 'package:qlkhachsan/models/RoomType.dart';
 import 'package:qlkhachsan/models/RoomVariant.dart';
 import 'package:provider/provider.dart';
@@ -17,8 +17,8 @@ class _BookState extends State<Book> {
   TextEditingController _cccdController = TextEditingController();
   TextEditingController _arriveController = TextEditingController();
   TextEditingController _leaveController = TextEditingController();
-  DateTime? _arriveDate;
-  DateTime? _leaveDate;
+  DateTime _arriveDate = DateTime(0,0,0,0,0);
+  DateTime _leaveDate = DateTime(0,0,0,0,0);
   bool hasError = false;
   Room? selectedRoom;
   String? selectedRoomType;
@@ -218,8 +218,35 @@ class _BookState extends State<Book> {
                                 roomManagerProvider.editRoom(rom!, newRoom);
                                 roomManagerProvider.notifyDataChanged();
                                 rom = newRoom;
+                                _arriveDate = DateTime.parse(_arriveController.text);
+                                _leaveDate = DateTime.parse(_leaveController.text);
+                                roomManagerProvider.addClient(
+                                    _nameController.text,
+                                    int.parse(_cccdController.text),
+                                    _arriveDate,
+                                    _leaveDate,
+                                    newRoom
+                                );
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text('Done!'),
+                                      content: Text('Successfully!'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            // Navigator.pop(context);
+                                          },
+                                          child: Text('Close'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
                               }
-                              Navigator.of(context).popAndPushNamed('/trangchu');
+                              // Navigator.of(context).popAndPushNamed('/trangchu');
                             },
                             child: Text('Đặt phòng'),
                           );

@@ -60,7 +60,7 @@ class MyHomePage extends StatelessWidget{
                 padding: EdgeInsets.all(15.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).popAndPushNamed('//');
+                    Navigator.of(context).popAndPushNamed('/khachhang');
                   },
                   child: Container(
                       width: ui.fontSize * 7.3,
@@ -88,7 +88,7 @@ class MyHomePage extends StatelessWidget{
                 padding: EdgeInsets.all(15.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).popAndPushNamed('//');
+                    Navigator.of(context).popAndPushNamed('/dichvu');
                   },
                   child: Container(
                       width: ui.fontSize * 7.3,
@@ -116,7 +116,7 @@ class MyHomePage extends StatelessWidget{
                 padding: const EdgeInsets.all(15.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).popAndPushNamed('//');
+                    Navigator.of(context).popAndPushNamed('/thongke');
                   },
                   child: Container(
                       width: ui.fontSize * 7.3,

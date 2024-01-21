@@ -10,43 +10,64 @@ class showRoomDatailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<UserInterface>(
-        builder: (context, ui, child){
-          return Scaffold(
-            appBar: AppBar(
-              title: Text('Info ${room.name}'),
-              backgroundColor: ui.appBarColor,
-              leading: IconButton(
-                icon: Icon(Icons.arrow_back),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
+      builder: (context, ui, child) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('Info ${room.name}'),
+            backgroundColor: ui.appBarColor,
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
+          body: Stack(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade300,
+                  ),
               ),
-            ),
-            backgroundColor: Colors.white,
-            body: ListView(
-              shrinkWrap: true,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    room.image,
-                    Padding(
-                      padding: EdgeInsets.only(top: 20.0, left: 15.0, right: 15.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(room.name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35, color: Colors.black)),
-                          Text( '${room.price}\$', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color: Colors.blueGrey.shade400)),
-                          Text(room.detail, style: TextStyle( fontSize: 16, color: Colors.grey.shade700) )
-                        ],
-                      ),
-                    )
-                  ],
-                )
-              ],
-            ),
-          );
-        }
+              // Nội dung
+              ListView(
+                shrinkWrap: true,
+                children: [
+                  Hero(
+                    tag: 'room_image_${room.name}',
+                    child: room.image,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(20.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          room.name,
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35, color: Colors.black),
+                        ),
+                        Text(
+                          '${room.price}\$',
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30, color: Colors.lightBlueAccent),
+                        ),
+                        Card(
+                          child: Padding(
+                            padding: EdgeInsets.all(16.0),
+                              child: Text(
+                                room.detail,
+                                style: TextStyle(fontSize: 16, color: Colors.black),
+                              ),
+                          )
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

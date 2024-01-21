@@ -6,11 +6,10 @@ import '/widgets/home_page.dart';
 import '/widgets/settings.dart';
 import '/widgets/roomManager.dart';
 import '/widgets/book.dart';
-
+import 'widgets/showClient.dart';
 import '/widgets/showRoomDetailList.dart';
-import '/widgets/book.dart';
-
-import 'widgets/showRoomDetailList.dart';
+import 'widgets/showService.dart';
+import 'widgets/statistic.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,8 +33,9 @@ class MyApp extends StatelessWidget {
           "/phong": (context) => MyRoomPage(),
           "/book": (context) => Book(),
           "/thongtin": (context) => showRoomDetai(),
-          "/book": (context) => Book(),
-          "/thongtin": (context) => showRoomDetai(),
+          "/khachhang": (context) => showClient(),
+          "/dichvu": (context) => Service(),
+          "/thongke": (context) => StatisticsPage()
         },
         //home: MyHomePage(), // Set MyHomePage as the home screen
       ),
