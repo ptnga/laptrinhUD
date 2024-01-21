@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:qlkhachsan/models/Room.dart';
-import '/widgets/roomManager.dart';
-import '/models/RoomType.dart';
-import '/models/RoomVariant.dart';
-import 'package:qlkhachsan/models/Room.dart';
-
+import 'package:qlkhachsan/widgets/roomManager.dart';
+import 'package:qlkhachsan/models/RoomType.dart';
+import 'package:qlkhachsan/models/RoomVariant.dart';
 import 'package:provider/provider.dart';
 
 class Book extends StatefulWidget {
@@ -29,6 +27,7 @@ class _BookState extends State<Book> {
   ValueNotifier<RoomType?> type = ValueNotifier<RoomType?>(null);
   ValueNotifier<RoomVariant?> variant = ValueNotifier<RoomVariant?>(null);
   Room? rom;
+  int? defaultRoomValue; // Biến tạm thời để lưu giữ giá trị mặc định
 
   @override
   Widget build(BuildContext context) {
@@ -96,9 +95,7 @@ class _BookState extends State<Book> {
                         value: room.numberRoom,
                         child: Text(
                           ('${room.numberRoom}'),
-                          style: TextStyle(
-                            // fontWeight: room.isBooked ? FontWeight.bold : FontWeight.normal,
-                          ),
+                          style: TextStyle(),
                         ),
                         onTap: () {
                           setState(() {
@@ -112,12 +109,19 @@ class _BookState extends State<Book> {
                       );
                     }).toList();
 
+                    // Kiểm tra giá trị mặc định
+                    if (Rum == null || !roomItems.any((item) => item.value == Rum)) {
+                      defaultRoomValue = roomItems.isNotEmpty ? roomItems.first.value : null;
+                      Rum = defaultRoomValue; // Đặt giá trị mặc định cho Rum
+                    }
+
                     return DropdownButton<int>(
                       value: Rum,
                       items: roomItems,
                       onChanged: (int? newValue) {
                         setState(() {
                           Rum = newValue;
+                          defaultRoomValue = newValue; // Cập nhật giá trị mặc định khi có thay đổi
                           NumberRoom = int.parse(newValue.toString());
                         });
                       },
@@ -130,9 +134,7 @@ class _BookState extends State<Book> {
                     return ElevatedButton(
                       onPressed: () {
                         if (_nameController.text.isEmpty ||
-                            _cccdController.text.isEmpty ||
-                            selectedRoomType == null ||
-                            selectedRoomVariant == null) {
+                            _cccdController.text.isEmpty ) {
                           setState(() {
                             hasError = true;
                           });
@@ -161,7 +163,6 @@ class _BookState extends State<Book> {
                             },
                           );
                         } else {
-
                           newStatus = true;
                           Room newRoom = Room(
                             numberRoom: NumberRoom,
@@ -173,9 +174,8 @@ class _BookState extends State<Book> {
                           roomManagerProvider.editRoom(rom!, newRoom);
                           roomManagerProvider.notifyDataChanged();
                           rom = newRoom;
-
                         }
-                        Navigator.pop(context);
+                        Navigator.of(context).popAndPushNamed('/trangchu');
                       },
                       child: Text('Đặt phòng'),
                     );
@@ -185,7 +185,7 @@ class _BookState extends State<Book> {
             ),
           ),
         ],
-      )
+      ),
     );
   }
 }
