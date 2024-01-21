@@ -16,7 +16,7 @@ class MyHomePage extends StatelessWidget{
           //backgroundColor: ui.homePageBackgroundColor,
 
           appBar: AppBar(
-            title: Text("Thông tin hệ thống"),
+            title: Text("Home"),
             backgroundColor: ui.appBarColor,
           ),
 
@@ -48,7 +48,7 @@ class MyHomePage extends StatelessWidget{
                           ),
                           SizedBox(height: 8.0),
                           Text(
-                            'Phòng',
+                            'Room',
                             style: TextStyle(fontSize: ui.fontSize),
                           )
                         ],
@@ -60,7 +60,7 @@ class MyHomePage extends StatelessWidget{
                 padding: EdgeInsets.all(15.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).popAndPushNamed('/caidat');
+                    Navigator.of(context).popAndPushNamed('//');
                   },
                   child: Container(
                       width: ui.fontSize * 7.3,
@@ -76,7 +76,7 @@ class MyHomePage extends StatelessWidget{
                           ),
                           SizedBox(height: 8.0,),
                           Text(
-                            'Khách hàng',
+                            'Client',
                             style: TextStyle(fontSize: ui.fontSize),
                           )
                         ],
@@ -88,7 +88,7 @@ class MyHomePage extends StatelessWidget{
                 padding: EdgeInsets.all(15.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).popAndPushNamed('/caidat');
+                    Navigator.of(context).popAndPushNamed('//');
                   },
                   child: Container(
                       width: ui.fontSize * 7.3,
@@ -104,7 +104,7 @@ class MyHomePage extends StatelessWidget{
                           ),
                           SizedBox(height: 8.0,),
                           Text(
-                            'Dịch vụ',
+                            'Service',
                             style: TextStyle(fontSize: ui.fontSize),
                           )
                         ],
@@ -116,7 +116,7 @@ class MyHomePage extends StatelessWidget{
                 padding: const EdgeInsets.all(15.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).popAndPushNamed('/caidat');
+                    Navigator.of(context).popAndPushNamed('//');
                   },
                   child: Container(
                       width: ui.fontSize * 7.3,
@@ -132,7 +132,7 @@ class MyHomePage extends StatelessWidget{
                           ),
                           SizedBox(height: 8.0,),
                           Text(
-                            'Thống kê',
+                            'Statistics',
                             style: TextStyle(fontSize: ui.fontSize),
                           )
                         ],
@@ -160,7 +160,7 @@ class MyHomePage extends StatelessWidget{
                           ),
                           SizedBox(height: 8.0,),
                           Text(
-                            'Đặt phòng',
+                            'Book Room',
                             style: TextStyle(fontSize: ui.fontSize),
                           )
                         ],
@@ -188,7 +188,7 @@ class MyHomePage extends StatelessWidget{
                         ),
                         SizedBox(height: 8.0,),
                         Text(
-                          'Thông tin',
+                          'Information',
                           style: TextStyle(fontSize: ui.fontSize),
                         )
                       ],

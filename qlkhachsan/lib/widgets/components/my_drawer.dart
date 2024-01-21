@@ -23,35 +23,35 @@ class MyDrawer extends StatelessWidget{
           InkWell(
             onTap: () => Navigator.of(context).popAndPushNamed('/trangchu'),
             child: ListTile(
-              title: Text('Trang chính'),
+              title: Text('Home'),
               leading: Icon(Icons.home, color: Colors.indigo),
             ),
           ),
           InkWell(
             onTap: () => Navigator.of(context).popAndPushNamed('/'),
             child: ListTile(
-              title: Text('Phòng'),
+              title: Text('Room'),
               leading: Icon(Icons.room, color: Colors.red),
             ),
           ),
           InkWell(
             onTap: () => Navigator.of(context).popAndPushNamed('/'),
             child: ListTile(
-              title: Text('Dịch vụ'),
+              title: Text('Service'),
               leading: Icon(Icons.cleaning_services),
             ),
           ),
           InkWell(
             onTap: () => Navigator.of(context).popAndPushNamed('/'),
             child: ListTile(
-              title: Text('Đặt trả'),
+              title: Text('Pay Order'),
               leading: Icon(Icons.calendar_today, color: Colors.purple,),
             ),
           ),
           InkWell(
             onTap: () => Navigator.of(context).popAndPushNamed('/'),
             child: ListTile(
-              title: Text('Thống kê'),
+              title: Text('Statistics'),
               leading: Icon(Icons.bar_chart, color: Colors.orange),
             ),
           ),
@@ -61,7 +61,7 @@ class MyDrawer extends StatelessWidget{
           InkWell(
             onTap: () => Navigator.of(context).popAndPushNamed('/caidat'),
             child: ListTile(
-              title: Text('Cài đặt'),
+              title: Text('Setting'),
               leading: Icon(Icons.settings, color: Colors.blue,),
             ),
           ),
