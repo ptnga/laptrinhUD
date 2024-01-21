@@ -27,8 +27,8 @@ class MySetting extends StatelessWidget {
                   ),
 
                   Slider(
-                    min: 10,
-                    max: 25,
+                    min: 15,
+                    max: 23,
                     value: ui.fontSize,
                     onChanged: (newValue) {
                       ui.fontSize = newValue;

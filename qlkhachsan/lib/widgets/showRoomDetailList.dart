@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:qlkhachsan/models/showRoomDetail.dart';
+import 'package:qlkhachsan/models/user_interface.dart';
 import 'showRoomDetailPage.dart';
 
 class showRoomDetai extends StatelessWidget {
@@ -11,116 +13,120 @@ class showRoomDetai extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Room description'),
-        backgroundColor: Colors.lightBlue,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).popAndPushNamed('/trangchu');
-          },
-        ),
-      ),
-      body: ListView(
-            shrinkWrap: true,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+    return Consumer<UserInterface>(
+        builder: (context, ui, child){
+          return Scaffold(
+              appBar: AppBar(
+                title: Text('Room description'),
+                backgroundColor: ui.appBarColor,
+                leading: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.of(context).popAndPushNamed('/trangchu');
+                  },
+                ),
+              ),
+              body: ListView(
+                shrinkWrap: true,
                 children: [
-                  SizedBox(height: 20,),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => showRoomDatailPage(showRoomDetailList[0]),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 20,),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => showRoomDatailPage(showRoomDetailList[0]),
+                            ),
+                          );
+                        },
+                        child: Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Row(
+                              children: [
+                                Icon(Icons.bedroom_child_outlined, size: 40, color: Colors.teal.shade200),
+                                SizedBox(width: 20.0,),
+                                Text('Single Standard', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 27),)
+                              ],
+                            ),
+                          ) ,
                         ),
-                      );
-                    },
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Row(
-                          children: [
-                            Icon(Icons.bedroom_child_outlined, size: 40, color: Colors.teal.shade200),
-                            SizedBox(width: 20.0,),
-                            Text('Single Standard', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 27),)
-                          ],
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => showRoomDatailPage(showRoomDetailList[1]),
+                            ),
+                          );
+                        },
+                        child: Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Row(
+                              children: [
+                                Icon(Icons.bedroom_child, size: 40, color: Colors.teal.shade200),
+                                SizedBox(width: 20.0,),
+                                Text('Single VIP', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 27),)
+                              ],
+                            ),
+                          ) ,
                         ),
-                      ) ,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => showRoomDatailPage(showRoomDetailList[1]),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => showRoomDatailPage(showRoomDetailList[2]),
+                            ),
+                          );
+                        },
+                        child: Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Row(
+                              children: [
+                                Icon(Icons.bedroom_parent_outlined, size: 40, color: Colors.teal.shade200),
+                                SizedBox(width: 20.0,),
+                                Text('Double Standard', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 27),)
+                              ],
+                            ),
+                          ) ,
                         ),
-                      );
-                    },
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Row(
-                          children: [
-                            Icon(Icons.bedroom_child, size: 40, color: Colors.teal.shade200),
-                            SizedBox(width: 20.0,),
-                            Text('Single VIP', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 27),)
-                          ],
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => showRoomDatailPage(showRoomDetailList[3]),
+                            ),
+                          );
+                        },
+                        child: Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Row(
+                              children: [
+                                Icon(Icons.bedroom_parent, size: 40, color: Colors.teal.shade200),
+                                SizedBox(width: 20.0,),
+                                Text('Double VIP', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 27),)
+                              ],
+                            ),
+                          ) ,
                         ),
-                      ) ,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => showRoomDatailPage(showRoomDetailList[2]),
-                        ),
-                      );
-                    },
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Row(
-                          children: [
-                            Icon(Icons.bedroom_parent_outlined, size: 40, color: Colors.teal.shade200),
-                            SizedBox(width: 20.0,),
-                            Text('Double Standard', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 27),)
-                          ],
-                        ),
-                      ) ,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => showRoomDatailPage(showRoomDetailList[3]),
-                        ),
-                      );
-                    },
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Row(
-                          children: [
-                            Icon(Icons.bedroom_parent, size: 40, color: Colors.teal.shade200),
-                            SizedBox(width: 20.0,),
-                            Text('Double VIP', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 27),)
-                          ],
-                        ),
-                      ) ,
-                    ),
+                      )
+                    ],
                   )
                 ],
               )
-            ],
-        )
+          );
+        }
     );
   }
 }

@@ -20,7 +20,6 @@ class UserInterface with ChangeNotifier {
       case 'Red': return Colors.red;
       case 'Green': return Colors.green;
       case 'Blue': return Colors.blue;
-      //case 'White': return Colors.white;
       default: return Colors.lightGreenAccent;
     }
   }
