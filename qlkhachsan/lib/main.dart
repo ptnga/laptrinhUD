@@ -5,17 +5,12 @@ import '/models/user_interface.dart';
 import '/widgets/home_page.dart';
 import '/widgets/settings.dart';
 import '/widgets/roomManager.dart';
-<<<<<<< HEAD
 import '/widgets/book.dart';
 
 import '/widgets/showRoomDetailList.dart';
-=======
-// HEAD
 import '/widgets/book.dart';
 
 import 'widgets/showRoomDetailList.dart';
-//fc74a4b0f4a1335593bf03a8f2e4c11e4d94b4c4
->>>>>>> 57b789feb04b66e92de5692a91f1c54e725eda69
 
 void main() {
   runApp(const MyApp());
@@ -37,16 +32,10 @@ class MyApp extends StatelessWidget {
           "/trangchu": (context) => MyHomePage(),
           "/caidat": (context) => MySetting(),
           "/phong": (context) => MyRoomPage(),
-<<<<<<< HEAD
           "/book": (context) => Book(),
           "/thongtin": (context) => showRoomDetai(),
-=======
-// HEAD
           "/book": (context) => Book(),
-
           "/thongtin": (context) => showRoomDetai(),
-// fc74a4b0f4a1335593bf03a8f2e4c11e4d94b4c4
->>>>>>> 57b789feb04b66e92de5692a91f1c54e725eda69
         },
         //home: MyHomePage(), // Set MyHomePage as the home screen
       ),

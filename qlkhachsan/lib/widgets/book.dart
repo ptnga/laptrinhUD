@@ -4,6 +4,7 @@ import 'package:qlkhachsan/widgets/roomManager.dart';
 import 'package:qlkhachsan/models/RoomType.dart';
 import 'package:qlkhachsan/models/RoomVariant.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class Book extends StatefulWidget {
   @override
@@ -15,6 +16,8 @@ class _BookState extends State<Book> {
   TextEditingController _cccdController = TextEditingController();
   TextEditingController _arriveController = TextEditingController();
   TextEditingController _leaveController = TextEditingController();
+  DateTime? _arriveDate;
+  DateTime? _leaveDate;
   bool hasError = false;
   Room? selectedRoom;
   String? selectedRoomType;
@@ -28,6 +31,32 @@ class _BookState extends State<Book> {
   ValueNotifier<RoomVariant?> variant = ValueNotifier<RoomVariant?>(null);
   Room? rom;
   int? defaultRoomValue; // Biến tạm thời để lưu giữ giá trị mặc định
+
+  Future<void> _selectDate(BuildContext context, TextEditingController controller) async {
+    DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+    if (pickedDate != null) {
+      TimeOfDay? pickedTime = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now(),
+      );
+
+      if (pickedTime != null) {
+        pickedDate = DateTime(pickedDate.year, pickedDate.month, pickedDate.day, pickedTime.hour, pickedTime.minute);
+      }
+    }
+
+    if (pickedDate != null && pickedDate != controller.text) {
+      setState(() {
+        controller.text = DateFormat("yyyy-MM-dd HH:mm").format(pickedDate!);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +80,7 @@ class _BookState extends State<Book> {
               children: [
                 Text(
                   'Họ Tên:',
-                  style: TextStyle(fontSize: 16),
+                  style: TextStyle(fontSize: 20),
                 ),
                 TextField(
                   controller: _nameController,
@@ -59,26 +88,38 @@ class _BookState extends State<Book> {
                 SizedBox(height: 16),
                 Text(
                   'Số CCCD:',
-                  style: TextStyle(fontSize: 16),
+                  style: TextStyle(fontSize: 20),
                 ),
                 TextField(
                   controller: _cccdController,
                 ),
                 SizedBox(height: 16),
-                Text(
-                  'Ngày Đến:',
-                  style: TextStyle(fontSize: 16),
-                ),
-                TextField(
-                  controller: _arriveController,
+                GestureDetector(
+                  onTap: () => _selectDate(context, _arriveController),
+                  child: AbsorbPointer(
+                    child: TextField(
+                      controller: _arriveController,
+                      decoration: InputDecoration(
+                        labelText: 'Ngày Đến:',
+                        labelStyle: TextStyle(fontSize: 20),
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                  ),
                 ),
                 SizedBox(height: 16),
-                Text(
-                  'Ngày Đi:',
-                  style: TextStyle(fontSize: 16),
-                ),
-                TextField(
-                  controller: _leaveController,
+                GestureDetector(
+                  onTap: () => _selectDate(context, _leaveController),
+                  child: AbsorbPointer(
+                    child: TextField(
+                      controller: _leaveController,
+                      decoration: InputDecoration(
+                        labelText: 'Ngày Đi:',
+                        labelStyle: TextStyle(fontSize: 20),
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                  ),
                 ),
                 SizedBox(height: 16),
                 Text(
@@ -109,10 +150,9 @@ class _BookState extends State<Book> {
                       );
                     }).toList();
 
-                    // Kiểm tra giá trị mặc định
                     if (Rum == null || !roomItems.any((item) => item.value == Rum)) {
                       defaultRoomValue = roomItems.isNotEmpty ? roomItems.first.value : null;
-                      Rum = defaultRoomValue; // Đặt giá trị mặc định cho Rum
+                      Rum = defaultRoomValue;
                     }
 
                     return DropdownButton<int>(
@@ -121,7 +161,7 @@ class _BookState extends State<Book> {
                       onChanged: (int? newValue) {
                         setState(() {
                           Rum = newValue;
-                          defaultRoomValue = newValue; // Cập nhật giá trị mặc định khi có thay đổi
+                          defaultRoomValue = newValue;
                           NumberRoom = int.parse(newValue.toString());
                         });
                       },
