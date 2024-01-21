@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qlkhachsan/models/Room.dart';
+import 'package:qlkhachsan/models/user_interface.dart';
 import 'package:qlkhachsan/widgets/roomManager.dart';
 import 'package:qlkhachsan/models/RoomType.dart';
 import 'package:qlkhachsan/models/RoomVariant.dart';
@@ -60,172 +61,177 @@ class _BookState extends State<Book> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Book'),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).popAndPushNamed('/trangchu');
-          },
-        ),
-      ),
-      body: ListView(
-        shrinkWrap: true,
-        children: [
-          Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return Consumer<UserInterface>(
+        builder: (context, ui, child){
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('Book'),
+              backgroundColor: ui.appBarColor,
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () {
+                  Navigator.of(context).popAndPushNamed('/trangchu');
+                },
+              ),
+            ),
+            body: ListView(
+              shrinkWrap: true,
               children: [
-                Text(
-                  'Họ Tên:',
-                  style: TextStyle(fontSize: 20),
-                ),
-                TextField(
-                  controller: _nameController,
-                ),
-                SizedBox(height: 16),
-                Text(
-                  'Số CCCD:',
-                  style: TextStyle(fontSize: 20),
-                ),
-                TextField(
-                  controller: _cccdController,
-                ),
-                SizedBox(height: 16),
-                GestureDetector(
-                  onTap: () => _selectDate(context, _arriveController),
-                  child: AbsorbPointer(
-                    child: TextField(
-                      controller: _arriveController,
-                      decoration: InputDecoration(
-                        labelText: 'Ngày Đến:',
-                        labelStyle: TextStyle(fontSize: 20),
-                        border: OutlineInputBorder(),
+                Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Name:',
+                        style: TextStyle(fontSize: 20),
                       ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 16),
-                GestureDetector(
-                  onTap: () => _selectDate(context, _leaveController),
-                  child: AbsorbPointer(
-                    child: TextField(
-                      controller: _leaveController,
-                      decoration: InputDecoration(
-                        labelText: 'Ngày Đi:',
-                        labelStyle: TextStyle(fontSize: 20),
-                        border: OutlineInputBorder(),
+                      TextField(
+                        controller: _nameController,
                       ),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 16),
-                Text(
-                  'Selected Room:',
-                  style: TextStyle(fontSize: 16),
-                ),
-                Consumer<RoomManagerProvider>(
-                  builder: (context, roomManagerProvider, _) {
-                    RoomManagerProvider roomManagerProvider = Provider.of<RoomManagerProvider>(context, listen: false);
-                    List<DropdownMenuItem<int>> roomItems = roomManagerProvider.listRoom
-                        .where((room) => !room.statusBook)
-                        .map<DropdownMenuItem<int>>((Room room) {
-                      return DropdownMenuItem<int>(
-                        value: room.numberRoom,
-                        child: Text(
-                          ('${room.numberRoom}'),
-                          style: TextStyle(),
+                      SizedBox(height: 16),
+                      Text(
+                        'Identity Number:',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      TextField(
+                        controller: _cccdController,
+                      ),
+                      SizedBox(height: 16),
+                      GestureDetector(
+                        onTap: () => _selectDate(context, _arriveController),
+                        child: AbsorbPointer(
+                          child: TextField(
+                            controller: _arriveController,
+                            decoration: InputDecoration(
+                              labelText: 'Arrive Date:',
+                              labelStyle: TextStyle(fontSize: 20),
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
                         ),
-                        onTap: () {
-                          setState(() {
-                            Rum = room.numberRoom;
-                            rom = room;
-                            NumberFloor = room.numberfloor;
-                            type.value = room.type;
-                            variant.value = room.variant;
-                          });
-                        },
-                      );
-                    }).toList();
+                      ),
+                      SizedBox(height: 16),
+                      GestureDetector(
+                        onTap: () => _selectDate(context, _leaveController),
+                        child: AbsorbPointer(
+                          child: TextField(
+                            controller: _leaveController,
+                            decoration: InputDecoration(
+                              labelText: 'Leave Date:',
+                              labelStyle: TextStyle(fontSize: 20),
+                              border: OutlineInputBorder(),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 16),
+                      Text(
+                        'Selected Room:',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      Consumer<RoomManagerProvider>(
+                        builder: (context, roomManagerProvider, _) {
+                          RoomManagerProvider roomManagerProvider = Provider.of<RoomManagerProvider>(context, listen: false);
+                          List<DropdownMenuItem<int>> roomItems = roomManagerProvider.listRoom
+                              .where((room) => !room.statusBook)
+                              .map<DropdownMenuItem<int>>((Room room) {
+                            return DropdownMenuItem<int>(
+                              value: room.numberRoom,
+                              child: Text(
+                                ('${room.numberRoom}'),
+                                style: TextStyle(),
+                              ),
+                              onTap: () {
+                                setState(() {
+                                  Rum = room.numberRoom;
+                                  rom = room;
+                                  NumberFloor = room.numberfloor;
+                                  type.value = room.type;
+                                  variant.value = room.variant;
+                                });
+                              },
+                            );
+                          }).toList();
 
-                    if (Rum == null || !roomItems.any((item) => item.value == Rum)) {
-                      defaultRoomValue = roomItems.isNotEmpty ? roomItems.first.value : null;
-                      Rum = defaultRoomValue;
-                    }
+                          if (Rum == null || !roomItems.any((item) => item.value == Rum)) {
+                            defaultRoomValue = roomItems.isNotEmpty ? roomItems.first.value : null;
+                            Rum = defaultRoomValue;
+                          }
 
-                    return DropdownButton<int>(
-                      value: Rum,
-                      items: roomItems,
-                      onChanged: (int? newValue) {
-                        setState(() {
-                          Rum = newValue;
-                          defaultRoomValue = newValue;
-                          NumberRoom = int.parse(newValue.toString());
-                        });
-                      },
-                    );
-                  },
-                ),
-                Consumer<RoomManagerProvider>(
-                  builder: (context, roomManagerProvider, _) {
-                    RoomManagerProvider roomManagerProvider = Provider.of<RoomManagerProvider>(context, listen: false);
-                    return ElevatedButton(
-                      onPressed: () {
-                        if (_nameController.text.isEmpty ||
-                            _cccdController.text.isEmpty ) {
-                          setState(() {
-                            hasError = true;
-                          });
-                        } else {
-                          setState(() {
-                            hasError = false;
-                          });
-                        }
-
-                        if (hasError) {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Text('Error'),
-                                content: Text('Nhập đầy đủ thông tin!'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text('Đóng'),
-                                  )
-                                ],
-                              );
+                          return DropdownButton<int>(
+                            value: Rum,
+                            items: roomItems,
+                            onChanged: (int? newValue) {
+                              setState(() {
+                                Rum = newValue;
+                                defaultRoomValue = newValue;
+                                NumberRoom = int.parse(newValue.toString());
+                              });
                             },
                           );
-                        } else {
-                          newStatus = true;
-                          Room newRoom = Room(
-                            numberRoom: NumberRoom,
-                            numberfloor: NumberFloor,
-                            statusBook: newStatus,
-                            type: type.value!,
-                            variant: variant.value!,
+                        },
+                      ),
+                      Consumer<RoomManagerProvider>(
+                        builder: (context, roomManagerProvider, _) {
+                          RoomManagerProvider roomManagerProvider = Provider.of<RoomManagerProvider>(context, listen: false);
+                          return ElevatedButton(
+                            onPressed: () {
+                              if (_nameController.text.isEmpty ||
+                                  _cccdController.text.isEmpty ) {
+                                setState(() {
+                                  hasError = true;
+                                });
+                              } else {
+                                setState(() {
+                                  hasError = false;
+                                });
+                              }
+
+                              if (hasError) {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text('Error'),
+                                      content: Text('Nhập đầy đủ thông tin!'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Text('Đóng'),
+                                        )
+                                      ],
+                                    );
+                                  },
+                                );
+                              } else {
+                                newStatus = true;
+                                Room newRoom = Room(
+                                  numberRoom: NumberRoom,
+                                  numberfloor: NumberFloor,
+                                  statusBook: newStatus,
+                                  type: type.value!,
+                                  variant: variant.value!,
+                                );
+                                roomManagerProvider.editRoom(rom!, newRoom);
+                                roomManagerProvider.notifyDataChanged();
+                                rom = newRoom;
+                              }
+                              Navigator.of(context).popAndPushNamed('/trangchu');
+                            },
+                            child: Text('Đặt phòng'),
                           );
-                          roomManagerProvider.editRoom(rom!, newRoom);
-                          roomManagerProvider.notifyDataChanged();
-                          rom = newRoom;
-                        }
-                        Navigator.of(context).popAndPushNamed('/trangchu');
-                      },
-                      child: Text('Đặt phòng'),
-                    );
-                  },
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
-          ),
-        ],
-      ),
+          );
+        }
     );
   }
 }
