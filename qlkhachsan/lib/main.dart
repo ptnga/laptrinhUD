@@ -10,6 +10,7 @@ import 'widgets/showClient.dart';
 import '/widgets/showRoomDetailList.dart';
 import 'widgets/showService.dart';
 import 'widgets/statistic.dart';
+import '/widgets/about.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,7 +36,8 @@ class MyApp extends StatelessWidget {
           "/thongtin": (context) => showRoomDetai(),
           "/khachhang": (context) => showClient(),
           "/dichvu": (context) => Service(),
-          "/thongke": (context) => StatisticsPage()
+          "/thongke": (context) => StatisticsPage(),
+          "/about": (context) => About()
         },
         //home: MyHomePage(), // Set MyHomePage as the home screen
       ),

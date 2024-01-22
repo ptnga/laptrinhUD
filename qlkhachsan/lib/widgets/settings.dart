@@ -15,7 +15,7 @@ class MySetting extends StatelessWidget {
               backgroundColor: ui.appBarColor,
             ),
 
-            drawer: MyDrawer(),
+            //drawer: MyDrawer(),
 
               body: Column(
                 children: [

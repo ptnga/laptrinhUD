@@ -182,7 +182,7 @@ class MyHomePage extends StatelessWidget{
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.network(
-                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8G0oe-9R-XHGLoIzNMFkVY2W9TuN9T_UnqM_M4yqw5Pe0LFpw1aOXhUi1Onk9MVLs6As&usqp=CAU',
+                          'https://static.vecteezy.com/ti/vecteur-libre/p1/16436622-conception-d-icone-de-vecteur-de-chambre-a-coucher-gratuit-vectoriel.jpg',
                           width: ui.fontSize * 4,
                           height: ui.fontSize * 4,
                         ),

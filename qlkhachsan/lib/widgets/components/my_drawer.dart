@@ -12,7 +12,7 @@ class MyDrawer extends StatelessWidget{
             accountEmail: Text('nguyenhuuhoan22032003@gmail.com'),
             currentAccountPicture: GestureDetector(
               child: new CircleAvatar(
-                  backgroundColor: Colors.red,
+                  backgroundColor: Colors.orange,
                   child: Icon(Icons.person, color: Colors.white,)
               ),
             ),
@@ -28,28 +28,42 @@ class MyDrawer extends StatelessWidget{
             ),
           ),
           InkWell(
-            onTap: () => Navigator.of(context).popAndPushNamed('/'),
+            onTap: () => Navigator.of(context).popAndPushNamed('/phong'),
             child: ListTile(
               title: Text('Room'),
               leading: Icon(Icons.room, color: Colors.red),
             ),
           ),
           InkWell(
-            onTap: () => Navigator.of(context).popAndPushNamed('/'),
+            onTap: () => Navigator.of(context).popAndPushNamed('/khachhang'),
+            child: ListTile(
+              title: Text('Client'),
+              leading: Icon(Icons.people, color: Colors.orange),
+            ),
+          ),
+          InkWell(
+            onTap: () => Navigator.of(context).popAndPushNamed('/dichvu'),
             child: ListTile(
               title: Text('Service'),
               leading: Icon(Icons.cleaning_services),
             ),
           ),
           InkWell(
-            onTap: () => Navigator.of(context).popAndPushNamed('/'),
+            onTap: () => Navigator.of(context).popAndPushNamed('/book'),
             child: ListTile(
               title: Text('Pay Order'),
               leading: Icon(Icons.calendar_today, color: Colors.purple,),
             ),
           ),
           InkWell(
-            onTap: () => Navigator.of(context).popAndPushNamed('/'),
+            onTap: () => Navigator.of(context).popAndPushNamed('/thongtin'),
+            child: ListTile(
+              title: Text('Information'),
+              leading: Icon(Icons.insert_drive_file, color: Colors.brown),
+            ),
+          ),
+          InkWell(
+            onTap: () => Navigator.of(context).popAndPushNamed('/thongke'),
             child: ListTile(
               title: Text('Statistics'),
               leading: Icon(Icons.bar_chart, color: Colors.orange),
@@ -66,7 +80,7 @@ class MyDrawer extends StatelessWidget{
             ),
           ),
           InkWell(
-            onTap: () => Navigator.of(context).popAndPushNamed('/'),
+            onTap: () => Navigator.of(context).popAndPushNamed('/about'),
             child: ListTile(
               title: Text('About'),
               leading: Icon(Icons.help, color: Colors.green),

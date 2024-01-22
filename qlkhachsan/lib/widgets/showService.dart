@@ -1,46 +1,52 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:qlkhachsan/models/user_interface.dart';
 
 class Service extends StatelessWidget {
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Services'),
-        backgroundColor: Colors.lightGreenAccent,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).popAndPushNamed('/trangchu');
-          },
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Our Services',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+    return Consumer<UserInterface>(
+        builder: (context, ui, child){
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('Services'),
+              backgroundColor: ui.appBarColor,
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () {
+                  Navigator.of(context).popAndPushNamed('/trangchu');
+                },
+              ),
             ),
-            SizedBox(height: 16),
-            ServiceCard(
-              serviceName: 'Room Service',
-              description: 'Order food and beverages to your room.',
-              icon: Icons.room_service,
+            body: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Our Services',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: 16),
+                  ServiceCard(
+                    serviceName: 'Room Service',
+                    description: 'Order food and beverages to your room.',
+                    icon: Icons.room_service,
+                  ),
+                  ServiceCard(
+                    serviceName: 'Spa & Wellness',
+                    description: 'Relax and rejuvenate at our spa.',
+                    icon: Icons.spa,
+                  ),
+                  ServiceCard(
+                    serviceName: 'Concierge',
+                    description: 'Get assistance with travel, dining, and more.',
+                    icon: Icons.map,
+                  ),
+                ],
+              ),
             ),
-            ServiceCard(
-              serviceName: 'Spa & Wellness',
-              description: 'Relax and rejuvenate at our spa.',
-              icon: Icons.spa,
-            ),
-            ServiceCard(
-              serviceName: 'Concierge',
-              description: 'Get assistance with travel, dining, and more.',
-              icon: Icons.map,
-            ),
-          ],
-        ),
-      ),
+          );
+        }
     );
   }
 }

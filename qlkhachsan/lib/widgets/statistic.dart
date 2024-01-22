@@ -1,47 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:qlkhachsan/models/user_interface.dart';
 
 class StatisticsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Statistics'),
-        backgroundColor: Colors.lightGreenAccent,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).popAndPushNamed('/trangchu');
-          },
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildStatCard(
-              title: 'Total Revenue',
-              value: '\$1,000,000',
-              icon: Icons.attach_money,
-              color: Colors.green,
+    return Consumer<UserInterface>(
+        builder: (context, ui, child){
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('Statistics'),
+              backgroundColor: ui.appBarColor,
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () {
+                  Navigator.of(context).popAndPushNamed('/trangchu');
+                },
+              ),
             ),
-            SizedBox(height: 20),
-            _buildStatCard(
-              title: 'Number of Bookings',
-              value: '500 bookings',
-              icon: Icons.event,
-              color: Colors.blue,
+            body: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildStatCard(
+                    title: 'Total Revenue',
+                    value: '\$1,000,000',
+                    icon: Icons.attach_money,
+                    color: Colors.green,
+                  ),
+                  SizedBox(height: 20),
+                  _buildStatCard(
+                    title: 'Number of Bookings',
+                    value: '500 bookings',
+                    icon: Icons.event,
+                    color: Colors.blue,
+                  ),
+                  SizedBox(height: 20),
+                  _buildStatCard(
+                    title: 'Occupancy Rate',
+                    value: '80%',
+                    icon: Icons.hotel,
+                    color: Colors.orange,
+                  ),
+                ],
+              ),
             ),
-            SizedBox(height: 20),
-            _buildStatCard(
-              title: 'Occupancy Rate',
-              value: '80%',
-              icon: Icons.hotel,
-              color: Colors.orange,
-            ),
-          ],
-        ),
-      ),
+          );
+        }
     );
   }
 
